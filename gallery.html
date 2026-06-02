@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="shortcut icon" href="TP_LOGO.png" type="image/x-icon" />
+<title>Gallery</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#031524;
+    color:white;
+}
+
+footer{
+       height: 10vh;
+    
+      text-align: center;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #062745;
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+
+
+.gallery-header{
+    text-align:center;
+    padding:60px 20px;
+}
+
+.gallery-header h1{
+    font-size:3rem;
+    margin-bottom:10px;
+}
+
+.gallery-header p{
+    color:#aaa;
+}
+
+.gallery{
+    width:90%;
+    margin:auto;
+    columns:4 250px;
+    column-gap:15px;
+    padding-bottom:50px;
+}
+
+.gallery img{
+    width:100%;
+    margin-bottom:15px;
+    border-radius:15px;
+    cursor:pointer;
+    transition:.4s ease;
+}
+
+.gallery img:hover{
+    transform:scale(1.03);
+    filter:brightness(80%);
+}
+
+/* Lightbox */
+
+.lightbox{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:#010d17f7;
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:999;
+}
+
+.lightbox img{
+    max-width:90%;
+    max-height:90%;
+    border-radius:10px;
+}
+
+.close{
+    position:absolute;
+    top:20px;
+    right:30px;
+    color:white;
+    font-size:40px;
+    cursor:pointer;
+}
+h1 {
+  /* 1. Define the gradient background */
+  background: linear-gradient(to right, #e0313e, #ff914d);
+  
+  /* 2. Clip the background to the text */
+  background-clip: text;
+  -webkit-background-clip: text; /* Required for Chrome, Safari, and Edge */
+  
+  /* 3. Make the actual text transparent so the background shows through */
+  color: transparent;
+  
+  /* Optional: Standardize font appearance */
+  font-size: 72px;
+  font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+
+<section class="gallery-header">
+    <h1 class="tpg">TP Gallery</h1>
+    <p>Capturing moments through photography & creativity</p>
+</section>
+<h2 class="gallery">Vibrent Vasant</h2>
+<section class="gallery">
+    <img src="images/1.jpg" alt="">
+    <img src="images/2.jpg" alt="">
+    <img src="images/3.jpg" alt="">
+    <img src="images/4.jpg" alt="">
+    <img src="images/5.jpg" alt="">
+    <img src="images/6.jpg" alt="">
+    <img src="images/7.jpg" alt="">
+    <img src="images/8.jpg" alt="">
+    <img src="images/9.jpg" alt="">
+    <img src="images/10.jpg" alt="img">
+</section>
+<h2 class="gallery">Khel Khel Me</h2>
+
+<section class="gallery">
+    <img src="images/1.jpg" alt="">
+    <img src="images/2.jpg" alt="">
+    <img src="images/3.jpg" alt="">
+    <img src="images/4.jpg" alt="">
+    <img src="images/5.jpg" alt="">
+    <img src="images/6.jpg" alt="">
+    <img src="images/7.jpg" alt="">
+    <img src="images/8.jpg" alt="">
+    <img src="images/9.jpg" alt="">
+    <img src="images/10.jpg" alt="img">
+</section>
+
+<div class="lightbox" id="lightbox">
+    <span class="close">&times;</span>
+    <img id="lightbox-img">
+</div>
+
+<script>
+const galleryImages = document.querySelectorAll('.gallery img');
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightbox-img');
+const closeBtn = document.querySelector('.close');
+
+galleryImages.forEach(img => {
+    img.addEventListener('click', () => {
+        lightbox.style.display = 'flex';
+        lightboxImg.src = img.src;
+    });
+});
+
+closeBtn.addEventListener('click', () => {
+    lightbox.style.display = 'none';
+});
+
+lightbox.addEventListener('click', (e) => {
+    if(e.target !== lightboxImg){
+        lightbox.style.display = 'none';
+    }
+});
+</script>
+ <footer>
+    <p>© 2026 TEAM PEHCHAN. All rights reserved.</p>
+</footer>
+</body>
+</html>

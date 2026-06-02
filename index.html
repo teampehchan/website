@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="shortcut icon" href="TP_LOGO.png" type="image/x-icon" />
+  <title>TEAM PEHCHAN</title>
+  <style>
+    :root {
+      --primary-color: linear-gradient(to right, #e0313e, #ff914d);
+      --secondary-color: linear-gradient(to right, #e0313e, #ff914d);
+      --bg-color: #031524;
+      --text-color: #fff;
+      --hover-color: linear-gradient(to right, #e0313e, #ff914d);
+      --dark-bg: #031524;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+
+
+    img {
+      max-width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.532);
+      transition: transform 0.3s ease;
+    }
+
+    img:hover {
+      transform: scale(1.05);
+    }
+
+    header {
+      height: 100vh;
+      background: url('TP.jpg') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      color: white;
+      animation: fadeout 0.7s ease-in-out;
+    }
+
+    footer{
+       height: 10vh;
+    
+      text-align: center;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #062745;
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+
+    .en {
+    text-align:left;
+}
+
+.eh{
+     margin-bottom: 10px;
+    font-size: 2rem;
+}
+
+.date{
+    text-align:left;
+    font-size: 0.8rem;
+      margin-top: 5px;
+      color: rgba(255, 255, 255, 0.588);
+}
+
+button{
+    text-align:left;
+     margin-top: 10px;
+    padding: 20px;
+      border-radius: 30px;
+      
+    color: #fff;
+      text-align: center;
+      transition: all 0.3s ease;
+      background: linear-gradient(to right, #e0313e, #ff914d);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+
+@keyframes fadeout {
+      0% { opacity: 0; transform: translateY; }
+      100% { opacity: 1; transform: translateY; }
+    }
+
+    header::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.505);
+      z-index: 1;
+    }
+
+    header .content {
+      z-index: 2;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      animation: fadeIn 1.75s ease-in-out;
+    }
+
+h1 {
+  /* 1. Define the gradient background */
+  background: linear-gradient(to right, #e0313e, #ff914d);
+  
+  /* 2. Clip the background to the text */
+  background-clip: text;
+  -webkit-background-clip: text; /* Required for Chrome, Safari, and Edge */
+  
+  /* 3. Make the actual text transparent so the background shows through */
+  color: transparent;
+  
+  /* Optional: Standardize font appearance */
+  font-size: 72px;
+  font-weight: bold;
+}
+
+
+
+
+    header p {
+      font-size: 1rem;
+      margin-top: 0px;
+      color: rgba(255, 255, 255, 0.8);
+      animation: fadeIn 1.5s ease-in-out;
+    }
+
+    .post {
+         font-size: 0.9rem;
+      margin-top: 5px;
+      color: rgba(255, 255, 255, 0.588);
+     
+    }
+
+    .dp{
+    border-radius: 50%;
+      
+    }
+
+    .past{
+        max-width: 50px;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(-25px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .profile-pic {
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
+      border: 0px solid #fff;
+      object-fit: cover;
+      margin-bottom: 5px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.686);
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    section {
+      max-width: 1200px;
+      margin: 80px auto;
+      padding: 0 20px;
+    }
+
+    section h2 {
+      font-size: 2.5rem;
+      text-align: center;
+      margin-bottom: 20px;
+      color: var(--primary-color);
+      position: relative;
+    }
+
+    section h2::after {
+      content: '';
+      position: absolute;
+      width: 70px;
+      height: 4px;
+      background: var(--primary-color);
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: -10px;
+    }
+
+    .skills, .projects, .events {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      margin-top: 50px;
+      
+    }
+
+    .skill, .project, .event {
+      background-color: var(--dark-bg);
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+      transition: all 0.3s ease;
+       /* border: 0.1px solid #ffffff23; */
+    }
+.about {
+     
+      padding: 20px;
+      border-radius: 30px;
+      border: 0.1px solid ;
+      border-color: #ffffff83;
+      text-align: center;
+      transition: all 0.3s ease;
+      background-color: #062745;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    }
+    
+  .footer{
+     padding: 25px;
+      border-radius: 0px;
+      border: 0px solid #fff;
+      border-color: #fff;
+      text-align: center;
+      transition: all 0.3s ease;
+      background-color: #062745;
+      /* box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4); */
+       max-width: 1400px;
+      margin-left: 0px;
+      margin-right: 0px;
+     
+
+  }
+    .skill:hover, .project:hover {
+      transform: translateY(-10px);
+      background-color: #062745;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+      
+    }
+
+    .skill img {
+      width: 60px;
+      margin-bottom: 10px;
+    }
+
+    .project img {
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    .contact {
+      text-align: center;
+      margin-top: 80px;
+    }
+
+    .contact a {
+      color: var(--secondary-color);
+      text-decoration: none;
+      font-size: 1.5rem;
+      padding: 12px 20px;
+      border: 2px solid var(--secondary-color);
+      border-radius: 30px;
+      transition: all 0.3s ease;
+    }
+
+    .contact a:hover {
+      background-color: var(--secondary-color);
+      color: white;
+    }
+
+    .contact .btn1 {
+      background: var(--primary-color);
+      border: none;
+      padding: 15px 30px;
+      color: white;
+      border-radius: 25px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: background 0.3s ease;
+    }
+
+    .contact .btn1:hover {
+      background: var(--hover-color);
+    }
+
+    
+
+    .social-links {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .social-links li {
+      display: inline-block;
+    }
+
+    .social-links a {
+      display: inline-block;
+      width: 100px;
+      height: 100px;
+      border-radius: 26%;
+      background-size: cover;
+      background-position: center;
+      /* box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1); */
+      transition: all 0.4s ease;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .social-links a:hover {
+      transform: scale(1.1);
+      box-shadow: 0 10px 30px #094176;
+    }
+
+    #scrollToTopBtn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--primary-color);
+      border: none;
+      padding: 11.5px 20px;
+      border-radius: 50%;
+      cursor: pointer;
+      color: white;
+      font-size: 1.5rem;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.433);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    #scrollToTopBtn.show {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(-10px);
+    }
+
+    @media(max-width: 768px) {
+      header h1 {
+        font-size: 2.5rem;
+      }
+
+      .profile-pic {
+        width: 125px;
+        height: 125px;
+      }
+    }
+    .insta {
+      background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTK5zQ42vVBoRGGYD7A6pKnIIRAT_G-cFVZbA&s);
+    }
+
+    .yt{
+      background-image: url(https://img.magnific.com/premium-vector/red-youtube-logo-social-media-logo_197792-1803.jpg?semt=ais_hybrid&w=740&q=80);
+    }
+
+    .email{
+background-image: url(https://illustoon.com/photo/2751.png);
+
+    }
+
+    .join{
+      background-image: url(https://png.pngtree.com/png-vector/20200309/ourmid/pngtree-job-vacancy-with-join-our-team-recruitment-badge-png-image_2158417.jpg);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="content">
+      <img  src="TP_LOGO.png" alt="Your Photo" class="profile-pic" />
+      
+      <h1>TEAM PEHCHAN</h1>
+      
+      <p>Unlock Your Real Worth</p>
+    </div>
+  </header>
+
+  <section>
+    <h2>About Us</h2>
+    <div class="skills">
+      <div class="about">
+        <!-- <img src="https://cdn-icons-png.flaticon.com/512/732/732212.png" alt="HTML"> -->
+        <h4>Team Pehchan is more than just a group – we are a movement dedicated to unlocking the real worth within every individual. Our mission is to empower, inspire, and guide our members to discover their true potential and make a meaningful impact in their communities.
+
+ <br><br> Through workshops, events, and collaborative projects, we foster an environment of growth, learning, and excellence. We believe that everyone has a unique identity and purpose, and our goal is to help you recognize and celebrate yours.
+
+<br><br>Founded on the principles of self-discovery, leadership, and service, Team Pehchan brings together passionate individuals from diverse backgrounds who share a common vision: to create positive change and build a legacy of inspiration.</h4>
+      <!-- </div>
+      <div class="skill">
+        <img src="https://cdn-icons-png.flaticon.com/512/5968/5968292.png" alt="JavaScript"> -->
+        <!-- <h3>JavaScript</h3>
+      </div>
+      <div class="skill">
+        <img src="c++.png" alt="React">
+        <h3>C / C++</h3>
+      </div> -->
+      <!-- <div class="skill">
+        <img src="Python.png" alt="Git">
+        <h3>Python</h3>
+      </div> -->
+    </div>
+  </section>
+<section>
+    <h2>Previous Members
+& Teachers</h2>
+    <div class="skills">
+      
+      <div  class="skill">
+        <img class="dp" src="BD.JPG" alt="BD">
+        <h3>Mr. Bipul Kumar Dubey</h3>
+        <p class="post">Founding Teacher (2014)</p>
+      </div>
+
+      <div  class="skill">
+        <img class="dp" src="abhishek.png" alt="AG">
+        <h3>Abhishek Ghosh</h3>
+        <p class="post">President</p>
+      </div>
+
+      
+      <div  class="skill">
+        <img class="dp" src="olly.png" alt="olly">
+        <h3>Tanu Bala</h3>
+        <p class="post">Core Member</p>
+      </div>
+
+      <div  class="skill">
+        <img class="dp" src="NON.png" alt="NON">
+        <h3>4</h3>
+        <p class="post">Kuch to hoga</p>
+      </div>
+
+      <div  class="skill">
+        <img class="dp" src="NON.png" alt="NON">
+        <h3>5</h3>
+        <p class="post">Kuch to hoga</p>
+      </div>
+
+      <!-- <div onclick="location.href='cyber_c.jpg'" class="skill">
+        <img src="cyber.jpg" alt="JavaScript">
+        <h3>Cyber Security</h3>
+      </div> -->
+      <!-- <div class="skill">
+        <img src="Python.png" alt="Git">
+        <h3>Python</h3>
+      </div> -->
+    </div>
+  </section>
+
+  <section>
+    <h2>Current Members &
+Teachers</h2>
+    <div class="skills">
+      
+      <div  class="skill">
+        <img class="dp" src="BD.JPG" alt="BD">
+        <h3>Mr. Bipul Kumar Dubey</h3>
+        <p class="post">Founding Teacher</p>
+      </div>
+
+      <div  class="skill">
+        <img class="dp" src="shanbhavi.png" alt="SS">
+        <h3>Shambhavi</h3>
+        <p class="post">President</p>
+      </div>
+
+      
+      <div  class="skill">
+        <img class="dp" src="ayush.png" alt="NON">
+        <h3>Ayush Raj</h3>
+        <p class="post">Media Manage</p>
+      </div>
+
+      <div  class="skill">
+        <img class="dp" src="NON.png" alt="NON">
+        <h3>4</h3>
+        <p class="post">Kuch to hoga</p>
+      </div>
+
+      <div  class="skill">
+        <img class="dp" src="NON.png" alt="NON">
+        <h3>5</h3>
+        <p class="post">Kuch to hoga</p>
+      </div>
+      </div>
+  </section>
+
+  <section>
+  <h2>Events</h2>
+  <div class="events">
+    <div class="event">
+ <img class="past" src="past.png" alt="BD">
+        <h3 class="eh">Past Events</h3>
+        <div class="about">
+<h3 class="en">Vibrent Vasant 2025</h3>
+<p class="date">March 15, 2025</p>
+<h4 class="en">A event of colour with competisions like Food Fest
+and others.</h4>
+<button onclick="window.location.href='gallery.html';" target="_blank">View Gallery</button>
+ </div>
+
+<br>
+ <div class="about">
+<h3 class="en">Khel khel me</h3>
+<p class="date">Oct 20, 2025</p>
+<h4 class="en">A event of colour with competisions like Food Fest
+and others.</h4>
+<button onclick="window.location.href='gallery.html';" target="_blank">View Gallery</button>
+<!-- <div class="button">
+    <p> Viwe Gallery</p>
+</div> -->
+        </div>
+       
+    </div>
+
+     <div class="event">
+ <img class="past" src="Present.png" alt="BD">
+        <h3 class="eh">Present Events</h3>
+        <div class="about">
+<h3 class="en">Vibrent Vasant 2025</h3>
+<p class="date">March 15, 2025</p>
+<h4 class="en">A event of colour with competisions like Food Fest
+and others.</h4> </div>
+
+
+<!-- <div class="button">
+    <p> Viwe Gallery</p>
+</div> -->
+        </div>
+       
+    </div>
+   <br>
+     <div class="event">
+ <img class="past" src="upcoming.png" alt="BD">
+        <h3 class="eh">Upcoming Events</h3>
+        <div class="about">
+<h3 class="en">Vibrent Vasant 2025</h3>
+<p class="date">March 15, 2025</p>
+<h4 class="en">A event of colour with competisions like Food Fest
+and others.</h4> 
+
+<button onclick="window.location.href='https://instagram.com';" target="_blank">Ragister Now</button>
+</div>
+
+
+<!-- <div class="button">
+    <p> Viwe Gallery</p>
+</div> -->
+        </div>
+       
+    </div>
+   
+    
+    
+    <!-- <ul class="social-links">
+      <li><a href="https://ayushraj0511.github.io/tic-tac-toc/" target="_blank" class="ttt"></a><h3>Tic Tac Toc</h3></li>
+       <li><a href="https://www.snapchat.com/add/your.ayyush?share_id=mk-SXCs6Zmo&locale=en-IN" target="_blank" class="snapchat"></a></li>
+      <li><a href="https://www.instagram.com/your_ayyush?igsh=aGZmMzhyemRpYmtq" target="_blank" class="instagram"></a></li>
+      <li><a href="https://www.linkedin.com/in/ayush-raj-10a1882b8?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" class="linkedin"></a></li>
+      <li><a href="https://github.com/ayushraj0511" target="_blank" class="github"></a></li> -->
+    <!-- </ul> -->
+    
+  </div>
+  <!-- <section>
+    <h2>Projects</h2>
+    <section class="contact">
+        <a href="https://ayushraj0511.github.io/tic-tac-toc/" class="btn1"
+        >Tic Tac Toc</a>
+
+    </section>
+</section>
+    <div class="projects">
+        <div class="project" >
+           
+          <h3>Portfolio Website</h3>
+          <p>Built with HTML, CSS, and JavaScript</p>
+        </div>
+        <div  class="project">
+         
+          <h3>Mobile App UI</h3>
+          <p>Designed in Figma, developed in React Native</p>
+        </div>
+      </div>
+  </section> -->
+  <section class="contact">
+
+    <h2>Contact Us</h2>
+
+      <ul class="social-links">
+      <li><a href="https://www.instagram.com/team_pehchanofficial/" target="_blank" class="insta"></a></li>
+
+      <li><a href="https://youtube.com/@teampehchan?si=nLO03LDrTKRNFh5n" target="_blank" class="yt"></a></li>
+
+      <li><a href="mailto:teampehchanysm@gmail.com" target="_blank" class="email"></a></li>
+
+      <li><a href="https://www.linkedin.com/in/ayush-raj-10a1882b8?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" class="join"></a></li>
+
+      <!-- <li><a href="https://github.com/ayushraj0511" target="_blank" class="github"></a></li> -->
+
+    </ul>
+    
+
+
+    <!-- <p>Let's build something awesome together!</p> -->
+    <!-- <br> <a href="Resume_Ayush.pdf" 
+    >CV</a>
+    <BR><BR><BR>
+    <a href="mailto:ayushraj61247@gmail.com">Email Me</a><br>
+    <br><br>
+    <a href="social_media.html" class="btn1"
+            >Connect with Me</a> -->
+  </section>
+   </section>
+  
+  <footer>
+    <p>© 2026 TEAM PEHCHAN. All rights reserved.</p>
+</footer>
+
+  <button id="scrollToTopBtn" onclick="scrollToTop()">↑</button>
+
+  <script>
+    const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+    window.onscroll = function () {
+      if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+        scrollToTopBtn.classList.add('show');
+      } else {
+        scrollToTopBtn.classList.remove('show');
+      }
+    };
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+
+</body>
+</html>
