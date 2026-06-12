@@ -31,7 +31,19 @@ header::before {
 .site-title {
   font-family: 'Space Grotesk', sans-serif;
   font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; letter-spacing: -1.5px;
+  /* 1. Define the gradient background */
   background: linear-gradient(to right, #e0313e, #ff914d);
+  
+  /* 2. Clip the background to the text */
+  background-clip: text;
+  -webkit-background-clip: text; /* Required for Chrome, Safari, and Edge */
+  
+  /* 3. Make the actual text transparent so the background shows through */
+  color: transparent;
+  
+  /* Optional: Standardize font appearance */
+  font-size: 72px;
+  font-weight: bold;
   -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
 }
 .site-sub { color: var(--muted); font-size: 0.88rem; margin-top: 8px; }
