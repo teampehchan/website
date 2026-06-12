@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<link rel="shortcut icon" href="TP_LOGO (1).png" type="image/x-icon" />
+<title>TP Media Gallery</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #0d0d14;
+  --card: #1c1c2b;
+  --border: #2e2e45;
+  --accent: #e0313e;
+  --text: #e8e8f2;
+  --muted: #ff914d;
+  --radius: 14px;
+}
+body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; min-height: 100vh; }
+
+/* HEADER */
+header {
+  padding: 52px 32px 36px; text-align: center; position: relative;
+}
+header::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse 80% 55% at 50% -5%, rgba(124,111,255,0.15), transparent 70%);
+  pointer-events: none;
+}
+.site-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; letter-spacing: -1.5px;
+  background: linear-gradient(to right, #e0313e, #ff914d);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.site-sub { color: var(--muted); font-size: 0.88rem; margin-top: 8px; }
+.refresh-btn {
+  margin-top: 16px;
+  display: inline-flex; align-items: center; gap: 6px;
+  background: transparent; border: 1px solid var(--border);
+  color: var(--muted); border-radius: 50px; padding: 6px 16px;
+  font-size: 0.8rem; font-family: 'Inter', sans-serif;
+  cursor: pointer; transition: all 0.2s;
+}
+.refresh-btn:hover { border-color: var(--accent); color: var(--text); }
+
+/* STATS */
+.stats-row { display: flex; justify-content: center; gap: 32px; padding: 0 24px 20px; flex-wrap: wrap; }
+.stat .num { font-family: 'Space Grotesk', sans-serif; font-size: 1.6rem; font-weight: 700; color: var(--accent); }
+.stat .lbl { font-size: 0.72rem; color: var(--muted); margin-top: 2px; text-align: center; }
+
+/* FILTERS */
+.filter-row { display: flex; justify-content: center; gap: 8px; padding: 0 24px 24px; flex-wrap: wrap; }
+.ftag {
+  background: var(--card); border: 1px solid var(--border); color: var(--muted);
+  border-radius: 50px; padding: 6px 16px; font-size: 0.82rem;
+  font-family: 'Space Grotesk', sans-serif; cursor: pointer; transition: all 0.2s;
+}
+.ftag:hover { border-color: var(--accent); color: var(--text); }
+.ftag.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+/* GRID */
+.wrap { padding: 0 20px 60px; max-width: 1400px; margin: 0 auto; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+.card {
+  background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+  overflow: hidden; cursor: pointer; position: relative; aspect-ratio: 16/10;
+  transition: transform 0.22s, border-color 0.22s, box-shadow 0.22s;
+}
+.card:hover { transform: translateY(-4px); border-color: var(--accent); box-shadow: 0 14px 40px rgba(124,111,255,0.2); }
+.card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.no-thumb {
+  width: 100%; height: 100%; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 8px;
+  color: var(--muted); font-size: 0.78rem;
+  background: linear-gradient(135deg, #1a1a2e, #0f0f1e);
+}
+.no-thumb .ico { font-size: 2.2rem; }
+.play-icon {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 48px; height: 48px; background: rgba(124,111,255,0.82); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  transition: transform 0.2s, background 0.2s; backdrop-filter: blur(4px);
+}
+.card:hover .play-icon { background: var(--accent); transform: translate(-50%, -50%) scale(1.1); }
+.play-icon svg { fill: white; margin-left: 3px; }
+.tag {
+  position: absolute; top: 9px; right: 9px; border-radius: 6px; padding: 3px 8px;
+  font-size: 0.68rem; font-family: 'Space Grotesk', sans-serif; font-weight: 700;
+  letter-spacing: 0.4px; color: #fff; backdrop-filter: blur(4px);
+}
+.tag.video { background: rgba(124,111,255,0.82); }
+.tag.photo { background: rgba(255,107,138,0.82); }
+.card-title {
+  position: absolute; bottom: 0; left: 0; right: 0; padding: 24px 10px 10px;
+  background: linear-gradient(to top, rgba(0,0,0,0.72), transparent);
+  font-size: 0.76rem; color: rgba(255,255,255,0.8);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  opacity: 0; transition: opacity 0.2s;
+}
+.card:hover .card-title { opacity: 1; }
+
+/* STATUS */
+.status-msg { text-align: center; padding: 60px 20px; color: var(--muted); }
+.status-msg .ico { font-size: 2.8rem; margin-bottom: 14px; }
+.status-msg p { font-size: 0.92rem; line-height: 1.8; }
+.status-msg .err-box {
+  display: inline-block; margin-top: 12px;
+  background: rgba(255,107,138,0.08); border: 1px solid rgba(255,107,138,0.25);
+  border-radius: 8px; padding: 10px 18px;
+  font-size: 0.82rem; color: #ff8fab; font-family: monospace; line-height: 1.6;
+}
+.spinner {
+  width: 40px; height: 40px; border: 3px solid var(--border);
+  border-top-color: var(--accent); border-radius: 50%;
+  animation: spin 0.75s linear infinite; margin: 0 auto 18px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* LIGHTBOX */
+.lb {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,0.95); z-index: 999;
+  align-items: center; justify-content: center;
+  backdrop-filter: blur(8px); padding: 16px;
+}
+.lb.open { display: flex; }
+.lb-inner { display: flex; flex-direction: column; align-items: center; }
+.lb-inner img { max-width: 88vw; max-height: 80vh; border-radius: 10px; object-fit: contain; box-shadow: 0 0 80px rgba(0,0,0,0.9); }
+.lb-inner iframe { width: min(820px, 90vw); height: min(480px, 54vw); border: none; border-radius: 10px; box-shadow: 0 0 80px rgba(0,0,0,0.9); }
+.lb-caption { margin-top: 14px; font-size: 0.82rem; color: rgba(255,255,255,0.4); text-align: center; }
+.lb-close {
+  position: fixed; top: 18px; right: 20px;
+  background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15);
+  color: white; border-radius: 50%; width: 40px; height: 40px;
+  font-size: 1.1rem; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s; z-index: 1001;
+}
+.lb-close:hover { background: rgba(255,255,255,0.2); }
+.lb-arrow {
+  position: fixed; top: 50%; transform: translateY(-50%);
+  background: #e0313e; border: none; color: white;
+  width: 44px; height: 44px; border-radius: 50%;
+  font-size: 1.3rem; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s; z-index: 1001;
+}
+.lb-arrow:hover { background: var(--accent); }
+#lb-prev { left: 14px; } #lb-next { right: 14px; }
+
+@media (max-width: 600px) {
+  header { padding: 36px 16px 24px; }
+  .wrap { padding: 0 10px 40px; }
+  .grid { grid-template-columns: repeat(auto-fill, minmax(145px, 1fr)); gap: 10px; }
+  .lb-arrow { display: none; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="site-title">✦ TP Media Gallery</div>
+  <div class="site-sub">Capturing moments through photography & creativity</div>
+  <button class="refresh-btn" onclick="load()">↻ Refresh Gallery</button>
+</header>
+
+<!-- STATS -->
+<div id="statsRow" class="stats-row" style="display:none">
+  <div class="stat"><div class="num" id="nTotal">0</div><div class="lbl">Total Files</div></div>
+  <div class="stat"><div class="num" id="nPhoto">0</div><div class="lbl">Photos</div></div>
+  <div class="stat"><div class="num" id="nVideo">0</div><div class="lbl">Videos</div></div>
+</div>
+
+<!-- FILTERS -->
+<div id="filterRow" class="filter-row" style="display:none">
+  <button class="ftag on" onclick="applyFilter('all',this)">All</button>
+  <button class="ftag" onclick="applyFilter('photo',this)">📷 Photos</button>
+  <button class="ftag" onclick="applyFilter('video',this)">🎬 Videos</button>
+</div>
+
+<!-- GALLERY -->
+<div class="wrap">
+  <div id="statusMsg" class="status-msg">
+    <div class="spinner"></div>
+    <p>Loading your gallery…</p>
+  </div>
+  <div id="grid" class="grid"></div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lb" id="lb">
+  <button class="lb-arrow" id="lb-prev" onclick="nav(-1)">←</button>
+  <div class="lb-inner">
+    <div id="lb-content"></div>
+    <div class="lb-caption" id="lb-caption"></div>
+  </div>
+  <button class="lb-arrow" id="lb-next" onclick="nav(1)">→</button>
+  <button class="lb-close" onclick="closeLb()">✕</button>
+</div>
+
+<script>
+  // ─── YOUR CREDENTIALS (hardcoded — no setup needed) ───
+  const FOLDER_ID = '1TLkGS3QFn7gX1hmH9TYM7SCALfhPZ1Si';
+  const API_KEY   = 'AIzaSyCOCpxuE0y7epLllVS8FlHR1oIwVrF0OIA';
+  // ──────────────────────────────────────────────────────
+
+  const IMG = new Set(['image/jpeg','image/png','image/gif','image/webp','image/bmp','image/heic','image/svg+xml']);
+  const VID = new Set(['video/mp4','video/mpeg','video/quicktime','video/x-msvideo','video/webm','video/x-ms-wmv','video/3gpp','video/x-matroska']);
+  const isImg = f => IMG.has(f.mimeType);
+  const isVid = f => VID.has(f.mimeType);
+
+  let all = [], shown = [], cur = 0;
+
+  window.onload = () => load();
+
+  async function load() {
+    document.getElementById('grid').innerHTML = '';
+    document.getElementById('statsRow').style.display = 'none';
+    document.getElementById('filterRow').style.display = 'none';
+    document.getElementById('statusMsg').innerHTML = '<div class="spinner"></div><p>Loading your gallery…</p>';
+    all = [];
+
+    try {
+      await fetchFiles();
+
+      if (!all.length) {
+        setStatus(`<div class="ico">📭</div><p>No photos or videos found in your Drive folder.<br>Upload some files and click <strong>Refresh Gallery</strong>.</p>`);
+        return;
+      }
+
+      document.getElementById('statusMsg').innerHTML = '';
+      document.getElementById('statsRow').style.display = 'flex';
+      document.getElementById('filterRow').style.display = 'flex';
+      document.getElementById('nTotal').textContent = all.length;
+      document.getElementById('nPhoto').textContent = all.filter(isImg).length;
+      document.getElementById('nVideo').textContent = all.filter(isVid).length;
+      applyFilter('all', document.querySelector('.ftag.on'));
+
+    } catch(e) {
+      let hint = '';
+      if (e.message.includes('Drive API')) hint = '<br><strong>Fix:</strong> Go to Google Cloud Console → Library → Enable "Google Drive API"';
+      else if (e.message.includes('key')) hint = '<br><strong>Fix:</strong> Check your API key in Google Cloud Console';
+      else if (e.message.includes('permission') || e.message.includes('403')) hint = '<br><strong>Fix:</strong> Share the folder as "Anyone with the link"';
+      setStatus(`<div class="ico">⚠️</div><p>Could not load gallery.</p><div class="err-box">${e.message}${hint}</div>`);
+    }
+  }
+
+  async function fetchFiles(pageToken) {
+    const q      = encodeURIComponent(`'${FOLDER_ID}' in parents and trashed=false`);
+    const fields = encodeURIComponent('nextPageToken,files(id,name,mimeType,thumbnailLink)');
+    let url = `https://www.googleapis.com/drive/v3/files?q=${q}&fields=${fields}&pageSize=100&key=${API_KEY}`;
+    if (pageToken) url += `&pageToken=${encodeURIComponent(pageToken)}`;
+
+    const res  = await fetch(url);
+    const data = await res.json();
+    if (!res.ok) throw new Error(data?.error?.message || `HTTP ${res.status}`);
+
+    all.push(...(data.files || []).filter(f => isImg(f) || isVid(f)));
+    if (data.nextPageToken) await fetchFiles(data.nextPageToken);
+  }
+
+  function applyFilter(type, btn) {
+    document.querySelectorAll('.ftag').forEach(b => b.classList.remove('on'));
+    if (btn) btn.classList.add('on');
+    shown = type === 'all' ? [...all] : type === 'photo' ? all.filter(isImg) : all.filter(isVid);
+    renderGrid();
+  }
+
+  function renderGrid() {
+    const grid = document.getElementById('grid');
+    grid.innerHTML = '';
+    shown.forEach((f, i) => {
+      const vid   = isVid(f);
+      const thumb = f.thumbnailLink ? f.thumbnailLink.replace(/=s\d+/, '=s500') : null;
+      const card  = document.createElement('div');
+      card.className = 'card';
+      card.onclick   = () => openLb(i);
+      card.innerHTML = thumb
+        ? `<img src="${thumb}" alt="${f.name}" loading="lazy"/>`
+        : `<div class="no-thumb"><div class="ico">${vid ? '🎬' : '🖼️'}</div><span>${vid ? 'Video' : 'Photo'}</span></div>`;
+      if (vid) card.innerHTML += `<div class="play-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>`;
+      card.innerHTML += `<div class="tag ${vid ? 'video' : 'photo'}">${vid ? 'VIDEO' : 'PHOTO'}</div>`;
+      card.innerHTML += `<div class="card-title">${f.name}</div>`;
+      grid.appendChild(card);
+    });
+  }
+
+  function openLb(i)  { cur = i; renderLb(); document.getElementById('lb').classList.add('open'); document.body.style.overflow = 'hidden'; }
+  function closeLb()  { document.getElementById('lb').classList.remove('open'); document.getElementById('lb-content').innerHTML = ''; document.body.style.overflow = ''; }
+  function nav(d)     { cur = (cur + d + shown.length) % shown.length; renderLb(); }
+
+  function renderLb() {
+    const f = shown[cur];
+    document.getElementById('lb-content').innerHTML = isVid(f)
+      ? `<iframe src="https://drive.google.com/file/d/${f.id}/preview" allow="autoplay;fullscreen" allowfullscreen></iframe>`
+      : `<img src="https://drive.google.com/thumbnail?id=${f.id}&sz=w1200" alt="${f.name}"/>`;
+    document.getElementById('lb-caption').textContent = f.name;
+  }
+
+  function setStatus(html) { document.getElementById('statusMsg').innerHTML = html; }
+
+  document.getElementById('lb').addEventListener('click', e => { if (e.target === e.currentTarget) closeLb(); });
+  document.addEventListener('keydown', e => {
+    if (!document.getElementById('lb').classList.contains('open')) return;
+    if (e.key === 'Escape')      closeLb();
+    if (e.key === 'ArrowLeft')   nav(-1);
+    if (e.key === 'ArrowRight')  nav(1);
+  });
+</script>
+</body>
+</html>
